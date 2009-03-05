@@ -1,0 +1,7 @@
+ec-analyse-tools
+
+
+% lynx --source http://malhosts.example.jp | jsdec.pl
+
+
+% lynx --source http://malhosts8.example.jp | 8to7b.pl
