@@ -5,6 +5,7 @@ use warnings;
 use Getopt::Long;
 use Net::Jabber;
 use utf8;
+binmode STDIN, ":encoding(utf8)";
 #
 # % uname -a | jabberpipe.pl --server=jabber.jp --user=pipes --pass=pass --room=chat
 # % date | jabberpipe.pl --server=jabber.jp --user=pipes --pass=pass --to='to@example.jp'
