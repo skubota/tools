@@ -6,6 +6,7 @@ use Getopt::Long;
 use Net::Jabber;
 use utf8;
 binmode STDIN, ":encoding(utf8)";
+
 #
 # % uname -a | jabberpipe.pl --server=jabber.jp --user=pipes --pass=pass --room=chat
 # % date | jabberpipe.pl --server=jabber.jp --user=pipes --pass=pass --to='to@example.jp'
@@ -33,8 +34,8 @@ GetOptions(
 
 # Jabber Initialize
 my $jabber = new Net::Jabber::Client(
-  debuglevel => 0,
-  debugfile  => "debug.log",
+    debuglevel => 0,
+    debugfile  => "debug.log",
 );
 my $status = $jabber->Connect( hostname => $server );
 if ( !( defined($status) ) ) {
@@ -51,13 +52,14 @@ if ( $result[0] ne "ok" ) {
     print "ERROR: Authorization failed: $result[0] - $result[1]\n";
     exit(0);
 }
-my %roster = $jabber->RosterGet();
-$jabber->PresenceSend();
-
-$type='groupchat' if($room);
-if($type eq 'groupchat'){
-  $jabber->MUCJoin( room => $room, server => 'conference.'.$server, nick => $nick );
-  $to=$room . '@conference.' . $server;
+$type = 'groupchat' if ($room);
+if ( $type eq 'groupchat' ) {
+    $jabber->MUCJoin(
+        room   => $room,
+        server => 'conference.' . $server,
+        nick   => $nick
+    );
+    $to = $room . '@conference.' . $server;
 }
 sleep 2;
 while (<STDIN>) {
